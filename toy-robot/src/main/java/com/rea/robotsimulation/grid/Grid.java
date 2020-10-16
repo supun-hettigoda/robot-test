@@ -23,7 +23,7 @@ public interface Grid
      *
      * @param gridPoint - the point which need to be checked against this grid and cannot be null.
      */
-    default boolean inBound(GridPoint gridPoint)
+    public default boolean inBound(GridPoint gridPoint)
     {
         Objects.requireNonNull(gridPoint);
         return (gridPoint.getX() < getNumberOfColumns()) && (gridPoint.getY() < getNumberOfRows());

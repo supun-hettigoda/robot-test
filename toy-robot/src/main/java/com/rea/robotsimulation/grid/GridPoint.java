@@ -8,10 +8,10 @@ package com.rea.robotsimulation.grid;
 public class GridPoint
 {
     // x axis position (horizontal)
-    int x;
+    private int x;
 
     // x axis position (vertical)
-    int y;
+    private int y;
 
     public GridPoint(int x, int y)
     {
