@@ -1,5 +1,5 @@
 
-package com.rea.challenge;
+package com.rea.robotsimulation;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,6 +9,8 @@ import java.io.PrintStream;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.rea.robotsimulation.Main;
 
 /**
  * Unit test to cover the Main application initialisation.
