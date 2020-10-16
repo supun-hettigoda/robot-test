@@ -19,7 +19,7 @@ public interface Grid
     public int getNumberOfRows();
 
     /**
-     * This method will check the given {@link GridPoint} is within the range of this grid.
+     * This method will check the given {@link GridPoint} is within the bound of this grid.
      *
      * @param gridPoint - the point which need to be checked against this grid and cannot be null.
      */
