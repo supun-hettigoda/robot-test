@@ -1,5 +1,5 @@
 
-package com.rea.robotsimulation;
+package com.rea.robotsimulation.test;
 
 import static org.junit.Assert.assertEquals;
 
