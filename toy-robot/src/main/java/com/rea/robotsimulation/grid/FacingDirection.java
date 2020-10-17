@@ -2,28 +2,38 @@
 package com.rea.robotsimulation.grid;
 
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import com.rea.robotsimulation.util.FunctionUtils;
 import com.rea.robotsimulation.util.Predicates;
 
 /**
- * This enum class represent all allowed directions anyone can be facing on top of a {@link Grid}.
+ * This enum class represent all allowed directions a particular object can be facing on top of a
+ * {@link Grid}.
  *
+ * <P>
+ * These enum values are indexed to be clockwise position and {@link #of(int)} static method can be
+ * used to get the enum value by that index.
+ * </p>
+ *
+ * @see #getStepAheadGenerator()
  */
 public enum FacingDirection
 {
     // define directions indexed to clockwise.
-    NORTH(0),
-    EAST(1),
-    SOUTH(2),
-    WEST(3);
+    NORTH(0, FacingDirectionStepAheadService::stepAheadToNorth),
+    EAST(1, FacingDirectionStepAheadService::stepAheadToEast),
+    SOUTH(2, FacingDirectionStepAheadService::stepAheadToSouth),
+    WEST(3, FacingDirectionStepAheadService::stepAheadToWest);
 
-    private int index;
+    private final int index;
+    private final Function<GridPoint, GridPoint> stepAheadGenerator;
 
-    private FacingDirection(int index)
+    private FacingDirection(int index, Function<GridPoint, GridPoint> stepAheadGenerator)
     {
         this.index = index;
+        this.stepAheadGenerator = stepAheadGenerator;
     }
 
     public int getIndex()
@@ -45,6 +55,12 @@ public enum FacingDirection
                 .findFirst().orElseThrow(IndexOutOfBoundsException::new);
     }
 
+    private static boolean indexEquals(FacingDirection direction, int index)
+    {
+        Objects.requireNonNull(direction);
+        return Objects.equals(direction.getIndex(), index);
+    }
+
     /**
      * Returns the FacingDirection on the left of the current one
      */
@@ -63,9 +79,12 @@ public enum FacingDirection
         return FacingDirection.of((this.index + 1) % allDirections);
     }
 
-    private static boolean indexEquals(FacingDirection direction, int index)
+    /**
+     * Returns a function that can generate the {@link GridPoint} which is one step ahead to this
+     * facing direction.
+     */
+    public Function<GridPoint, GridPoint> getStepAheadGenerator()
     {
-        Objects.requireNonNull(direction);
-        return direction.getIndex() == index;
+        return this.stepAheadGenerator;
     }
 }

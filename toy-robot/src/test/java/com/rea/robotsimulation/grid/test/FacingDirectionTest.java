@@ -29,6 +29,15 @@ public class FacingDirectionTest
         Assert.assertEquals(FacingDirection.WEST.toRight(), FacingDirection.NORTH);
     }
 
+    @Test
+    public void test_indexOf()
+    {
+        Assert.assertEquals(FacingDirection.NORTH, FacingDirection.of(0));
+        Assert.assertEquals(FacingDirection.EAST, FacingDirection.of(1));
+        Assert.assertEquals(FacingDirection.SOUTH, FacingDirection.of(2));
+        Assert.assertEquals(FacingDirection.WEST, FacingDirection.of(3));
+    }
+
     @Test(expected = IndexOutOfBoundsException.class)
     public void invalidIndex()
     {
