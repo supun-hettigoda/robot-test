@@ -6,7 +6,7 @@ import com.rea.robotsimulation.grid.GridPoint;
 import com.rea.robotsimulation.robot.Robot;
 
 /**
- * Executable command to place the {@code Robot}.
+ * Executable command to place the {@code Robot} on a grid.
  *
  */
 public class PlaceCommand implements ExecutableRobotCommand
@@ -24,8 +24,6 @@ public class PlaceCommand implements ExecutableRobotCommand
     @Override
     public void execute(Robot robot)
     {
-        // updat t
-        robot.setCurrentGridPoint(pointToPlace);
-        robot.setFacingDirection(facingDirectionToPlace);
+        robot.place(pointToPlace, facingDirectionToPlace);
     }
 }
