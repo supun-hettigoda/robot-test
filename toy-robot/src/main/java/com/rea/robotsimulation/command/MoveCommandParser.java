@@ -10,7 +10,7 @@ import com.rea.robotsimulation.util.StringUtils;
  * This {@code RobotCommandParser} knows how to parse a given input command to an
  * {@code ExecutableRobotCommand} which can perform the move action.
  *
- * @see
+ * @see LeftCommand
  */
 public class MoveCommandParser implements RobotCommandParser
 {
