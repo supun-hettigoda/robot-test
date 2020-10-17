@@ -42,7 +42,7 @@ public class LeftCommandParserTest
     @DataPoints("notParsableInputs")
     public static String[] notParsableInputs = new String[]
     {
-        null, "", "MOVEe", "LEFT 1", "PLACE", "MOVE", "DAMN"
+        null, "", "left", "Left", "MOVEe", "LEFT 1", "PLACE", "MOVE", "DAMN"
     };
 
     @Theory

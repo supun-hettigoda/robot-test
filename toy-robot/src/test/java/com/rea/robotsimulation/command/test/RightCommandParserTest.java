@@ -15,34 +15,34 @@ import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
 import com.rea.robotsimulation.command.ExecutableRobotCommand;
-import com.rea.robotsimulation.command.MoveCommand;
-import com.rea.robotsimulation.command.MoveCommandParser;
+import com.rea.robotsimulation.command.RightCommand;
+import com.rea.robotsimulation.command.RightCommandParser;
 
 /**
- * This class contains tests for {@link MoveCommandParser}.
+ * This class contains tests for {@link RightCommandParser}.
  *
  */
 @RunWith(Theories.class)
-public class MoveCommandParserTest
+public class RightCommandParserTest
 {
-    private MoveCommandParser parser;
+    private RightCommandParser parser;
 
     @Before
     public void setUp()
     {
-        parser = new MoveCommandParser();
+        parser = new RightCommandParser();
     }
 
     @DataPoints("parsableInputs")
     public static String[] parsableInputs = new String[]
     {
-        "MOVE", "MOVE ", " MOVE", " MOVE ", "MOVE   "
+        "RIGHT", "RIGHT ", " RIGHT", " RIGHT ", "RIGHT   "
     };
 
     @DataPoints("notParsableInputs")
     public static String[] notParsableInputs = new String[]
     {
-        null, "move", "", "Move", "MOVEe", "MOVE 1", "PLACE", "LEFT", "DAMN"
+        null, "", "right", "Right", "RIGHT 1", "PLACE", "LEFT", "DAMN"
     };
 
     @Theory
@@ -50,7 +50,7 @@ public class MoveCommandParserTest
     {
         Optional<ExecutableRobotCommand> actual = parser.parse(input);
         assertThat(actual, instanceOf(Optional.class));
-        assertThat(actual.get(), instanceOf(MoveCommand.class));
+        assertThat(actual.get(), instanceOf(RightCommand.class));
     }
 
     @Theory
