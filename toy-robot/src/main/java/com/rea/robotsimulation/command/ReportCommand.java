@@ -1,6 +1,8 @@
 
 package com.rea.robotsimulation.command;
 
+import java.util.Optional;
+
 import com.rea.robotsimulation.robot.Robot;
 
 /**
@@ -12,6 +14,7 @@ public class ReportCommand implements ExecutableRobotCommand
     @Override
     public void execute(Robot robot)
     {
-        // TODO implement me
+        Optional<String> report = robot.report();
+        // TODO what to do with the reporting.
     }
 }
