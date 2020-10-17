@@ -38,4 +38,10 @@ public class Pair<F, S>
     {
         return new Pair<F, S>(first, second);
     }
+
+    @Override
+    public String toString()
+    {
+        return "Pair [first=" + first + ", second=" + second + "]";
+    }
 }

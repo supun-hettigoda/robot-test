@@ -1,6 +1,8 @@
 
 package com.rea.robotsimulation.robot;
 
+import java.util.Optional;
+
 import com.rea.robotsimulation.grid.FacingDirection;
 import com.rea.robotsimulation.grid.Grid;
 import com.rea.robotsimulation.grid.GridPoint;
@@ -17,9 +19,21 @@ public interface Robot
     public GridPoint getCurrentGridPoint();
 
     /**
+     * Set the given grip point as the current position of the {@code Robot} on the Grid. This will
+     * make the {@code Robot} to be placed at the given point.
+     */
+    public void setCurrentGridPoint(GridPoint currentGridPoint);
+
+    /**
      * @return current facing direction of the {@code Robot}.
      */
     public FacingDirection getFacingDirection();
+
+    /**
+     * Set the given facing direction as the {@code Robot}'s facingDirection. This will make the
+     * {@code Robot} to be turned to that {@code FacingDirection}.
+     */
+    public void setFacingDirection(FacingDirection facingDirection);
 
     /**
      * This method will move the {@code Robot} one step towards it's facing direction.
@@ -47,14 +61,16 @@ public interface Robot
     public void rotateRight();
 
     /**
-     * @return current report of the {@code Robot} current position on the grid in the following
-     *         format of,
+     * This method will return the report of the current position of the {@code Robot} on the grid
+     * in the following format of,
      *
-     *         <pre>
+     * <pre>
      *  x, y, FacingDirection.
-     *         </pre>
+     * </pre>
+     *
+     * @return optional report with null if not placed yet.
      */
-    public String report();
+    public Optional<String> report();
 
     /**
      * This method checks if the {@code Robot} has successfully placed on a {@link Grid}. It will
