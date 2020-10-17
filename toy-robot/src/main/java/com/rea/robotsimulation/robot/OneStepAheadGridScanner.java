@@ -8,21 +8,14 @@ import com.rea.robotsimulation.grid.Grid;
 import com.rea.robotsimulation.grid.GridPoint;
 
 /**
- * This {@code RobotStepScanner} can scan a one step ahead on the {@code Grid}.
+ * This {@code RobotGridScanner} can scan a one step ahead on the {@code Grid}.
  *
  */
-public class OneStepAheadGridScanner implements RobotStepScanner
+public class OneStepAheadGridScanner extends AbstractRobotGridScanner
 {
-    // the grid which this scanner can scan
-    private final Grid grid;
-
     public OneStepAheadGridScanner(Grid grid)
     {
-        super();
-
-        // scanner should be initialised with a null grid.
-        Objects.requireNonNull(grid);
-        this.grid = grid;
+        super(grid);
     }
 
     @Override

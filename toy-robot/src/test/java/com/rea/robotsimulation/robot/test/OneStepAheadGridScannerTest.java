@@ -1,6 +1,7 @@
 
 package com.rea.robotsimulation.robot.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -52,6 +53,13 @@ public class OneStepAheadGridScannerTest
         assertFalse(scanner.stepAheadSafe(testData.getFirst(), testData.getSecond()));
     }
 
+    @Theory
+    public void
+            test_pointExist(@FromDataPoints("pointsExistData") Pair<GridPoint, Boolean> testData)
+    {
+        assertEquals(testData.getSecond(), scanner.pointExist(testData.getFirst()));
+    }
+
     @DataPoints("stepAheadSafeData")
     public static List<Pair<GridPoint, FacingDirection>> stepAheadSafeData()
     {
@@ -79,5 +87,19 @@ public class OneStepAheadGridScannerTest
                 Pair.of(GridPoint.of(0, 4), FacingDirection.NORTH),
                 Pair.of(GridPoint.of(4, 0), FacingDirection.EAST),
                 Pair.of(GridPoint.of(4, 0), FacingDirection.SOUTH));
+    }
+
+    @DataPoints("pointsExistData")
+    public static List<Pair<GridPoint, Boolean>> pointsExistData()
+    {
+        return Arrays.asList(
+                Pair.of(GridPoint.of(0, 0), true),
+                Pair.of(GridPoint.of(0, 4), true),
+                Pair.of(GridPoint.of(4, 0), true),
+                Pair.of(GridPoint.of(4, 4), true),
+                Pair.of(GridPoint.of(0, 5), false),
+                Pair.of(GridPoint.of(5, 4), false),
+                Pair.of(GridPoint.of(-4, 0), false),
+                Pair.of(GridPoint.of(4, -1), false));
     }
 }

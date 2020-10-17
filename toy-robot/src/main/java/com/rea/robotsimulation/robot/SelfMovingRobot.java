@@ -26,9 +26,9 @@ public class SelfMovingRobot implements Robot
     private FacingDirection facingDirection;
 
     // scanner for step ahead safety check
-    private final RobotStepScanner scanner;
+    private final RobotGridScanner scanner;
 
-    public SelfMovingRobot(RobotStepScanner scanner)
+    public SelfMovingRobot(RobotGridScanner scanner)
     {
         super();
 

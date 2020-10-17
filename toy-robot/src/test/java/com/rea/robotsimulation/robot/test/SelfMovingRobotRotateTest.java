@@ -12,7 +12,7 @@ import org.mockito.Mockito;
 
 import com.rea.robotsimulation.grid.FacingDirection;
 import com.rea.robotsimulation.grid.GridPoint;
-import com.rea.robotsimulation.robot.RobotStepScanner;
+import com.rea.robotsimulation.robot.RobotGridScanner;
 import com.rea.robotsimulation.robot.SelfMovingRobot;
 
 /**
@@ -26,9 +26,9 @@ public class SelfMovingRobotRotateTest
     @Before
     public void setUp()
     {
-        notPlacedRobot = new SelfMovingRobot(Mockito.mock(RobotStepScanner.class));
+        notPlacedRobot = new SelfMovingRobot(Mockito.mock(RobotGridScanner.class));
 
-        placedRobot = new SelfMovingRobot(Mockito.mock(RobotStepScanner.class));
+        placedRobot = new SelfMovingRobot(Mockito.mock(RobotGridScanner.class));
         placedRobot.setCurrentGridPoint(new GridPoint(0, 0));
         placedRobot.setFacingDirection(FacingDirection.NORTH);
     }

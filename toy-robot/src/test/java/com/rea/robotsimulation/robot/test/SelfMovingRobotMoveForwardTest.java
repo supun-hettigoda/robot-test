@@ -12,7 +12,7 @@ import org.mockito.Mockito;
 
 import com.rea.robotsimulation.grid.FacingDirection;
 import com.rea.robotsimulation.grid.GridPoint;
-import com.rea.robotsimulation.robot.RobotStepScanner;
+import com.rea.robotsimulation.robot.RobotGridScanner;
 import com.rea.robotsimulation.robot.SelfMovingRobot;
 
 /**
@@ -25,13 +25,13 @@ public class SelfMovingRobotMoveForwardTest
     private SelfMovingRobot northFacingPlacedRobot;
     private SelfMovingRobot eastFasingPlacedRobot;
 
-    private RobotStepScanner scanner;
+    private RobotGridScanner scanner;
 
     @Before
     public void setUp()
     {
         // mock the scanner so we can mock the safe scanning access.
-        scanner = Mockito.mock(RobotStepScanner.class);
+        scanner = Mockito.mock(RobotGridScanner.class);
 
         notPlacedRobot = new SelfMovingRobot(scanner);
 

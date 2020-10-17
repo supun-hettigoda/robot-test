@@ -17,7 +17,7 @@ import org.mockito.Mockito;
 
 import com.rea.robotsimulation.grid.FacingDirection;
 import com.rea.robotsimulation.grid.GridPoint;
-import com.rea.robotsimulation.robot.RobotStepScanner;
+import com.rea.robotsimulation.robot.RobotGridScanner;
 import com.rea.robotsimulation.robot.SelfMovingRobot;
 import com.rea.robotsimulation.util.Pair;
 
@@ -30,7 +30,7 @@ public class SelfMovingRobotReportTest
     @Test
     public void report_whenNotYetPlaced()
     {
-        SelfMovingRobot notPlaced = new SelfMovingRobot(Mockito.mock(RobotStepScanner.class));
+        SelfMovingRobot notPlaced = new SelfMovingRobot(Mockito.mock(RobotGridScanner.class));
         assertFalse(notPlaced.report().isPresent());
     }
 
@@ -44,19 +44,19 @@ public class SelfMovingRobotReportTest
     @DataPoints("reportingTestData")
     public static List<Pair<SelfMovingRobot, String>> reportingTestData()
     {
-        SelfMovingRobot robot_1 = new SelfMovingRobot(Mockito.mock(RobotStepScanner.class));
+        SelfMovingRobot robot_1 = new SelfMovingRobot(Mockito.mock(RobotGridScanner.class));
         robot_1.setCurrentGridPoint(new GridPoint(0, 0));
         robot_1.setFacingDirection(FacingDirection.NORTH);
 
-        SelfMovingRobot robot_2 = new SelfMovingRobot(Mockito.mock(RobotStepScanner.class));
+        SelfMovingRobot robot_2 = new SelfMovingRobot(Mockito.mock(RobotGridScanner.class));
         robot_2.setCurrentGridPoint(new GridPoint(2, 3));
         robot_2.setFacingDirection(FacingDirection.EAST);
 
-        SelfMovingRobot robot_3 = new SelfMovingRobot(Mockito.mock(RobotStepScanner.class));
+        SelfMovingRobot robot_3 = new SelfMovingRobot(Mockito.mock(RobotGridScanner.class));
         robot_3.setCurrentGridPoint(new GridPoint(5, 7));
         robot_3.setFacingDirection(FacingDirection.SOUTH);
 
-        SelfMovingRobot robot_4 = new SelfMovingRobot(Mockito.mock(RobotStepScanner.class));
+        SelfMovingRobot robot_4 = new SelfMovingRobot(Mockito.mock(RobotGridScanner.class));
         robot_4.setCurrentGridPoint(new GridPoint(6, 7));
         robot_4.setFacingDirection(FacingDirection.WEST);
 
