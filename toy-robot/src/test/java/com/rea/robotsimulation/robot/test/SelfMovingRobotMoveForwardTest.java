@@ -36,11 +36,11 @@ public class SelfMovingRobotMoveForwardTest
         notPlacedRobot = new SelfMovingRobot(scanner);
 
         northFacingPlacedRobot = new SelfMovingRobot(scanner);
-        northFacingPlacedRobot.setCurrentGridPoint(new GridPoint(0, 0));
-        northFacingPlacedRobot.setFacingDirection(FacingDirection.NORTH);
+        Mockito.when(scanner.pointExist(GridPoint.of(0, 0))).thenReturn(true);
+        northFacingPlacedRobot.place(GridPoint.of(0, 0), FacingDirection.NORTH);
         eastFasingPlacedRobot = new SelfMovingRobot(scanner);
-        eastFasingPlacedRobot.setCurrentGridPoint(new GridPoint(3, 4));
-        eastFasingPlacedRobot.setFacingDirection(FacingDirection.EAST);
+        Mockito.when(scanner.pointExist(GridPoint.of(3, 4))).thenReturn(true);
+        eastFasingPlacedRobot.place(GridPoint.of(3, 4), FacingDirection.EAST);
     }
 
     @Test

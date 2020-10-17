@@ -50,17 +50,16 @@ public class SelfMovingRobot implements Robot
     }
 
     @Override
-    public void setCurrentGridPoint(GridPoint currentGridPoint)
+    public void place(GridPoint point, FacingDirection facingDirection)
     {
-        Objects.requireNonNull(currentGridPoint);
-        this.currentGridPoint = currentGridPoint;
-    }
-
-    @Override
-    public void setFacingDirection(FacingDirection facingDirection)
-    {
-        Objects.requireNonNull(facingDirection);
-        this.facingDirection = facingDirection;
+        LOGGER.trace("Place instruction received.");
+        if (!Objects.isNull(point) && !Objects.isNull(facingDirection)
+                && this.scanner.pointExist(point))
+        {
+            this.currentGridPoint = point;
+            this.facingDirection = facingDirection;
+        }
+        // TODO report ignore
     }
 
     @Override
@@ -78,8 +77,8 @@ public class SelfMovingRobot implements Robot
                 return;
             }
 
-            setCurrentGridPoint(
-                    this.facingDirection.getStepAheadGenerator().apply(this.currentGridPoint));
+            this.currentGridPoint =
+                    this.facingDirection.getStepAheadGenerator().apply(this.currentGridPoint);
             LOGGER.info(
                     "Moving forward to new position [{},{}]",
                     this.currentGridPoint.getX(),
@@ -94,7 +93,7 @@ public class SelfMovingRobot implements Robot
         LOGGER.trace("Turn left instruction received.");
         if (isPlaced())
         {
-            setFacingDirection(this.facingDirection.toLeft());
+            this.facingDirection = this.facingDirection.toLeft();
             LOGGER.info("New facing direction []", this.facingDirection);
         }
         // TODO report ignore
@@ -106,7 +105,7 @@ public class SelfMovingRobot implements Robot
         LOGGER.trace("Turn right instruction received.");
         if (isPlaced())
         {
-            setFacingDirection(this.facingDirection.toRight());
+            this.facingDirection = this.facingDirection.toRight();
             LOGGER.info("New facing direction []", this.facingDirection);
         }
         // TODO report ignore

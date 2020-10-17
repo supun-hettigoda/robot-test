@@ -26,11 +26,12 @@ public class SelfMovingRobotRotateTest
     @Before
     public void setUp()
     {
-        notPlacedRobot = new SelfMovingRobot(Mockito.mock(RobotGridScanner.class));
+        RobotGridScanner scanner = Mockito.mock(RobotGridScanner.class);
+        notPlacedRobot = new SelfMovingRobot(scanner);
 
-        placedRobot = new SelfMovingRobot(Mockito.mock(RobotGridScanner.class));
-        placedRobot.setCurrentGridPoint(new GridPoint(0, 0));
-        placedRobot.setFacingDirection(FacingDirection.NORTH);
+        placedRobot = new SelfMovingRobot(scanner);
+        Mockito.when(scanner.pointExist(GridPoint.of(0, 0))).thenReturn(true);
+        placedRobot.place(GridPoint.of(0, 0), FacingDirection.NORTH);
     }
 
     @Test

@@ -44,21 +44,23 @@ public class SelfMovingRobotReportTest
     @DataPoints("reportingTestData")
     public static List<Pair<SelfMovingRobot, String>> reportingTestData()
     {
-        SelfMovingRobot robot_1 = new SelfMovingRobot(Mockito.mock(RobotGridScanner.class));
-        robot_1.setCurrentGridPoint(new GridPoint(0, 0));
-        robot_1.setFacingDirection(FacingDirection.NORTH);
+        RobotGridScanner scanner = Mockito.mock(RobotGridScanner.class);
 
-        SelfMovingRobot robot_2 = new SelfMovingRobot(Mockito.mock(RobotGridScanner.class));
-        robot_2.setCurrentGridPoint(new GridPoint(2, 3));
-        robot_2.setFacingDirection(FacingDirection.EAST);
+        SelfMovingRobot robot_1 = new SelfMovingRobot(scanner);
+        Mockito.when(scanner.pointExist(GridPoint.of(0, 0))).thenReturn(true);
+        robot_1.place(GridPoint.of(0, 0), FacingDirection.NORTH);
 
-        SelfMovingRobot robot_3 = new SelfMovingRobot(Mockito.mock(RobotGridScanner.class));
-        robot_3.setCurrentGridPoint(new GridPoint(5, 7));
-        robot_3.setFacingDirection(FacingDirection.SOUTH);
+        SelfMovingRobot robot_2 = new SelfMovingRobot(scanner);
+        Mockito.when(scanner.pointExist(GridPoint.of(2, 3))).thenReturn(true);
+        robot_2.place(GridPoint.of(2, 3), FacingDirection.EAST);
 
-        SelfMovingRobot robot_4 = new SelfMovingRobot(Mockito.mock(RobotGridScanner.class));
-        robot_4.setCurrentGridPoint(new GridPoint(6, 7));
-        robot_4.setFacingDirection(FacingDirection.WEST);
+        SelfMovingRobot robot_3 = new SelfMovingRobot(scanner);
+        Mockito.when(scanner.pointExist(GridPoint.of(5, 7))).thenReturn(true);
+        robot_3.place(GridPoint.of(5, 7), FacingDirection.SOUTH);
+
+        SelfMovingRobot robot_4 = new SelfMovingRobot(scanner);
+        Mockito.when(scanner.pointExist(GridPoint.of(6, 7))).thenReturn(true);
+        robot_4.place(GridPoint.of(6, 7), FacingDirection.WEST);
 
         return Arrays.asList(
                 Pair.of(robot_1, "0,0,NORTH"),

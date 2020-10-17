@@ -19,21 +19,15 @@ public interface Robot
     public GridPoint getCurrentGridPoint();
 
     /**
-     * Set the given grip point as the current position of the {@code Robot} on the Grid. This will
-     * make the {@code Robot} to be placed at the given point.
-     */
-    public void setCurrentGridPoint(GridPoint currentGridPoint);
-
-    /**
      * @return current facing direction of the {@code Robot}.
      */
     public FacingDirection getFacingDirection();
 
     /**
-     * Set the given facing direction as the {@code Robot}'s facingDirection. This will make the
-     * {@code Robot} to be turned to that {@code FacingDirection}.
+     * This method will place the {@code Robot}'s on the given point facing the given
+     * {@code FacingDirection}.
      */
-    public void setFacingDirection(FacingDirection facingDirection);
+    public void place(GridPoint point, FacingDirection facingDirection);
 
     /**
      * This method will move the {@code Robot} one step towards it's facing direction.
