@@ -26,6 +26,7 @@ public interface Grid
     public default boolean inBound(GridPoint gridPoint)
     {
         Objects.requireNonNull(gridPoint);
-        return (gridPoint.getX() < getNumberOfColumns()) && (gridPoint.getY() < getNumberOfRows());
+        return (gridPoint.getX() >= 0 && gridPoint.getX() < getNumberOfColumns())
+                && (gridPoint.getY() >= 0 && gridPoint.getY() < getNumberOfRows());
     }
 }

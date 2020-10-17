@@ -77,6 +77,11 @@ public class RobotTableTopTest
     @DataPoints("biggerTableOutBound")
     public static List<GridPoint> biggerTableOutBoundData()
     {
-        return Arrays.asList(new GridPoint(10, 10), new GridPoint(0, 12), new GridPoint(11, 0));
+        return Arrays.asList(
+                new GridPoint(10, 10),
+                new GridPoint(0, 12),
+                new GridPoint(11, 0),
+                new GridPoint(-1, 0),
+                new GridPoint(0, -2));
     }
 }
