@@ -49,10 +49,13 @@ public enum FacingDirection
      */
     public static FacingDirection of(int index)
     {
-        return Stream.of(FacingDirection.values()).filter(
-                Predicates.of(
+        // @formatter:off
+        return Stream.of(FacingDirection.values())
+                .filter(Predicates.of(
                         FunctionUtils.reduceToOneArgFunction(FacingDirection::indexEquals, index)))
-                .findFirst().orElseThrow(IndexOutOfBoundsException::new);
+                .findFirst()
+                .orElseThrow(IndexOutOfBoundsException::new);
+        // @formatter:on
     }
 
     private static boolean indexEquals(FacingDirection direction, int index)
@@ -66,8 +69,10 @@ public enum FacingDirection
      */
     public FacingDirection toLeft()
     {
-        int allDirections = FacingDirection.values().length;
-        return FacingDirection.of((this.index - 1 + allDirections) % allDirections);
+        // since values are indexed to clockwise we can use
+        // left rotation algorithm to work out the next on left.
+        int valuesLength = values().length;
+        return FacingDirection.of((this.index - 1 + valuesLength) % valuesLength);
     }
 
     /**
@@ -75,8 +80,10 @@ public enum FacingDirection
      */
     public FacingDirection toRight()
     {
-        int allDirections = FacingDirection.values().length;
-        return FacingDirection.of((this.index + 1) % allDirections);
+        // since values are indexed to clockwise we can use
+        // right rotation algorithm to work out the next on right.
+        int valuesLength = values().length;
+        return FacingDirection.of((this.index + 1) % valuesLength);
     }
 
     /**
