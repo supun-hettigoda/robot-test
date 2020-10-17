@@ -8,9 +8,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import com.rea.robotsimulation.grid.FacingDirection;
 import com.rea.robotsimulation.grid.GridPoint;
+import com.rea.robotsimulation.robot.RobotStepScanner;
 import com.rea.robotsimulation.robot.SelfMovingRobot;
 
 /**
@@ -23,15 +25,20 @@ public class SelfMovingRobotMoveForwardTest
     private SelfMovingRobot northFacingPlacedRobot;
     private SelfMovingRobot eastFasingPlacedRobot;
 
+    private RobotStepScanner scanner;
+
     @Before
     public void setUp()
     {
-        notPlacedRobot = new SelfMovingRobot();
+        // mock the scanner so we can mock the safe scanning access.
+        scanner = Mockito.mock(RobotStepScanner.class);
 
-        northFacingPlacedRobot = new SelfMovingRobot();
+        notPlacedRobot = new SelfMovingRobot(scanner);
+
+        northFacingPlacedRobot = new SelfMovingRobot(scanner);
         northFacingPlacedRobot.setCurrentGridPoint(new GridPoint(0, 0));
         northFacingPlacedRobot.setFacingDirection(FacingDirection.NORTH);
-        eastFasingPlacedRobot = new SelfMovingRobot();
+        eastFasingPlacedRobot = new SelfMovingRobot(scanner);
         eastFasingPlacedRobot.setCurrentGridPoint(new GridPoint(3, 4));
         eastFasingPlacedRobot.setFacingDirection(FacingDirection.EAST);
     }
@@ -41,9 +48,30 @@ public class SelfMovingRobotMoveForwardTest
     {
         // assert placed
         assertTrue(northFacingPlacedRobot.isPlaced());
+        // mock safe to move
+        Mockito.when(scanner.stepAheadSafe(GridPoint.of(0, 0), FacingDirection.NORTH))
+                .thenReturn(true);
+
         // move forward should update the current Grid point of the robot by a one step
         northFacingPlacedRobot.move();
-        assertEquals(new GridPoint(0, 1), northFacingPlacedRobot.getCurrentGridPoint());
+        assertEquals(GridPoint.of(0, 1), northFacingPlacedRobot.getCurrentGridPoint());
+        Mockito.verify(scanner).stepAheadSafe(GridPoint.of(0, 0), FacingDirection.NORTH);
+        assertTrue(northFacingPlacedRobot.isPlaced()); // still placed
+    }
+
+    @Test
+    public void moveForward_northFacingPlacedRobot_whenNotSafe()
+    {
+        // assert placed
+        assertTrue(northFacingPlacedRobot.isPlaced());
+        // not safe to move
+        Mockito.when(scanner.stepAheadSafe(GridPoint.of(0, 0), FacingDirection.NORTH))
+                .thenReturn(false);
+
+        // should not allow move forward if not safe
+        northFacingPlacedRobot.move();
+        assertEquals(GridPoint.of(0, 0), northFacingPlacedRobot.getCurrentGridPoint());
+        Mockito.verify(scanner).stepAheadSafe(GridPoint.of(0, 0), FacingDirection.NORTH);
         assertTrue(northFacingPlacedRobot.isPlaced()); // still placed
     }
 
@@ -52,9 +80,30 @@ public class SelfMovingRobotMoveForwardTest
     {
         // assert placed
         assertTrue(eastFasingPlacedRobot.isPlaced());
+        // mock safe to move
+        Mockito.when(scanner.stepAheadSafe(GridPoint.of(3, 4), FacingDirection.EAST))
+                .thenReturn(true);
+
         // move forward should update the current Grid point of the robot by a one step
         eastFasingPlacedRobot.move();
         assertEquals(new GridPoint(4, 4), eastFasingPlacedRobot.getCurrentGridPoint());
+        Mockito.verify(scanner).stepAheadSafe(GridPoint.of(3, 4), FacingDirection.EAST);
+        assertTrue(eastFasingPlacedRobot.isPlaced()); // still placed
+    }
+
+    @Test
+    public void moveForward_eastFacingPlacedRobot_whenNotSafe()
+    {
+        // assert placed
+        assertTrue(eastFasingPlacedRobot.isPlaced());
+        // not safe to move
+        Mockito.when(scanner.stepAheadSafe(GridPoint.of(3, 4), FacingDirection.EAST))
+                .thenReturn(false);
+
+        // should not allow move forward if not safe
+        eastFasingPlacedRobot.move();
+        assertEquals(new GridPoint(3, 4), eastFasingPlacedRobot.getCurrentGridPoint());
+        Mockito.verify(scanner).stepAheadSafe(GridPoint.of(3, 4), FacingDirection.EAST);
         assertTrue(eastFasingPlacedRobot.isPlaced()); // still placed
     }
 

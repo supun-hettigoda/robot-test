@@ -8,9 +8,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import com.rea.robotsimulation.grid.FacingDirection;
 import com.rea.robotsimulation.grid.GridPoint;
+import com.rea.robotsimulation.robot.RobotStepScanner;
 import com.rea.robotsimulation.robot.SelfMovingRobot;
 
 /**
@@ -24,9 +26,9 @@ public class SelfMovingRobotRotateTest
     @Before
     public void setUp()
     {
-        notPlacedRobot = new SelfMovingRobot();
+        notPlacedRobot = new SelfMovingRobot(Mockito.mock(RobotStepScanner.class));
 
-        placedRobot = new SelfMovingRobot();
+        placedRobot = new SelfMovingRobot(Mockito.mock(RobotStepScanner.class));
         placedRobot.setCurrentGridPoint(new GridPoint(0, 0));
         placedRobot.setFacingDirection(FacingDirection.NORTH);
     }
