@@ -11,9 +11,31 @@ import com.rea.robotsimulation.grid.FacingDirection;
 import com.rea.robotsimulation.grid.GridPoint;
 
 /**
- * This Robot can move one step ahead and rotate 90 degrees either clockwise or anti-clockwise.
+ * This Robot can move itself freely and safely on top of a {@code Grid}.
+ * <p>
+ * use the {@link #place(GridPoint, FacingDirection)} command to place this robot on a Grid. Once
+ * placed it will be able to move anywhere on the grid or rotate left or right.
+ * </p>
  *
- * TODO - more java doc going forward.
+ * <p>
+ * This has following methods,
+ * <ul>
+ * <li>{@link #move()} - to safely move the robot one step forward.</li>
+ * <li>{@link #rotateLeft()} - left rotate it one unit anti-clockwise.</li>
+ * <li>{@link #rotateRight()} - to rotate it one unit clockwise.</li>
+ * <li>{@link #report()} - to report it's current position n the grid.</li>
+ * </ul>
+ * </p>
+ *
+ *
+ * <p>
+ * It will use a {@code RobotGridScanner} to scan the safety of the movements. And it will ignore
+ * any unsafe commands.
+ * </p>
+ *
+ * one step ahead and rotate 90 degrees either clockwise or anti-clockwise.
+ *
+ * @see RobotGridScanner
  */
 public class SelfMovingRobot implements Robot
 {
@@ -52,28 +74,29 @@ public class SelfMovingRobot implements Robot
     @Override
     public void place(GridPoint point, FacingDirection facingDirection)
     {
-        LOGGER.trace("Place instruction received.");
+        LOGGER.debug("Place instruction received.");
         if (!Objects.isNull(point) && !Objects.isNull(facingDirection)
                 && this.scanner.pointExist(point))
         {
             this.currentGridPoint = point;
             this.facingDirection = facingDirection;
+            LOGGER.info(
+                    "Robot placed on the [" + point.toString() + "] "
+                            + this.facingDirection.name());
         }
-        // TODO report ignore
     }
 
     @Override
     public void move()
     {
-        LOGGER.trace("Move forward instruction received.");
+        LOGGER.debug("Move forward instruction received.");
         if (isPlaced())
         {
             // Robot is placed.
-            // Check if it safe to move.
+            // Check if it is safe to move.
             if (!this.scanner.stepAheadSafe(this.currentGridPoint, this.facingDirection))
             {
-                // TODO report ignore
-                LOGGER.info("Not safe to move.");
+                LOGGER.debug("move request ignored, not safe to move.");
                 return;
             }
 
@@ -84,46 +107,43 @@ public class SelfMovingRobot implements Robot
                     this.currentGridPoint.getX(),
                     this.currentGridPoint.getY());
         }
-        // TODO report ignore
     }
 
     @Override
     public void rotateLeft()
     {
-        LOGGER.trace("Turn left instruction received.");
+        LOGGER.debug("Turn left instruction received.");
         if (isPlaced())
         {
             this.facingDirection = this.facingDirection.toLeft();
             LOGGER.info("New facing direction []", this.facingDirection);
         }
-        // TODO report ignore
     }
 
     @Override
     public void rotateRight()
     {
-        LOGGER.trace("Turn right instruction received.");
+        LOGGER.debug("Turn right instruction received.");
         if (isPlaced())
         {
             this.facingDirection = this.facingDirection.toRight();
             LOGGER.info("New facing direction []", this.facingDirection);
         }
-        // TODO report ignore
     }
 
     @Override
     public Optional<String> report()
     {
-        LOGGER.trace("Report instruction received.");
+        LOGGER.debug("Report instruction received.");
         if (isPlaced())
         {
-            LOGGER.info("Reporting the state.");
-            return Optional.of(
-                    String.format(
-                            "%d,%d,%s",
-                            this.currentGridPoint.getX(),
-                            this.currentGridPoint.getY(),
-                            this.facingDirection.name()));
+            String state = String.format(
+                    "%d,%d,%s",
+                    this.currentGridPoint.getX(),
+                    this.currentGridPoint.getY(),
+                    this.facingDirection.name());
+            LOGGER.info("Reporting the state [" + state + "]");
+            return Optional.of(state);
         }
 
         return Optional.empty();

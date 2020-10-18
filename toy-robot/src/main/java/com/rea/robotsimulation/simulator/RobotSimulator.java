@@ -5,6 +5,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.rea.robotsimulation.command.CommandBinding;
 import com.rea.robotsimulation.command.ExecutableRobotCommand;
 import com.rea.robotsimulation.robot.Robot;
@@ -28,6 +31,8 @@ import com.rea.robotsimulation.robot.Robot;
  */
 public class RobotSimulator
 {
+    public static final Logger LOGGER = LoggerFactory.getLogger(RobotSimulator.class);
+
     // from which the simulator receive simulation commands.
     private final InputCommandProvider commandProvider;
 
@@ -49,6 +54,7 @@ public class RobotSimulator
      */
     public void start(Robot robot)
     {
+        LOGGER.info("Simulator starting up...");
         Objects.requireNonNull(robot);
         // continuously keep listening for new commands
         Optional<String> nextCommand = this.commandProvider.nextCommand();
@@ -67,13 +73,16 @@ public class RobotSimulator
         {
             this.commandExecutionStateReporter.get().accept("No more commands shutting down...");
         }
+        LOGGER.info("Simuator terminated.");
     }
 
     private void executeInputCommand(String inputCommand, Robot robot)
     {
+        LOGGER.debug("evaluating input command[" + inputCommand + "]");
         Optional<ExecutableRobotCommand> executable = CommandBinding.toExecutable(inputCommand);
         if (executable.isPresent())
         {
+            LOGGER.debug("input match to the executable [" + executable.get().getClass() + "]");
             executable.get().execute(robot, this.commandExecutionStateReporter);
         }
     }
