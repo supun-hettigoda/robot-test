@@ -22,11 +22,11 @@ public class InputStreamCommandProviderTest
     {
         InputStream is = new ByteArrayInputStream("PLACE 1,1,NORTH\r\nMOVE".getBytes());
         InputStreamCommandProvider provider = new InputStreamCommandProvider(is);
-        assertEquals("PLACE 1,1,NORTH", provider.getNextCommand().get());
-        assertEquals("MOVE", provider.getNextCommand().get());
+        assertEquals("PLACE 1,1,NORTH", provider.nextCommand().get());
+        assertEquals("MOVE", provider.nextCommand().get());
 
         // next attempt should result in an empty optional since the input stream only has two
         // lines of commands.
-        assertFalse(provider.getNextCommand().isPresent());
+        assertFalse(provider.nextCommand().isPresent());
     }
 }

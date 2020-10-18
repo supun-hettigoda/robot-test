@@ -26,7 +26,7 @@ public class InputStreamCommandProvider implements InputCommandProvider
     }
 
     @Override
-    public Optional<String> getNextCommand()
+    public Optional<String> nextCommand()
     {
         try
         {

@@ -13,5 +13,5 @@ public interface InputCommandProvider
      * @return the next command that need to be executed, empty means no more commands will be
      *         provided.
      */
-    public Optional<String> getNextCommand();
+    public Optional<String> nextCommand();
 }
