@@ -1,0 +1,65 @@
+Toy Robot Simulator
+===================
+This file contains informations on how to build and run this program on a console.
+
+
+#project-root folder
+--------------------
+toy-robot/toy-robot
+(same folder where this README and pom is located)
+
+
+#technology dependencies
+------------------------
+java 1.8
+Apache maven 4
+
+(Above technologies needs to be installed to build and run this application.)
+
+
+#important commands
+--------------------
+
+to build:
+mvn clean install
+
+to execute test:
+mvn test
+
+to run the program on console:
+mvn exec:java
+
+to import the project on eclipse:
+mvn eclipse:eclipse
+
+note: all the above commands need to be executed within project-root(see above).
+
+
+#How it works
+------------
+It will run the program on console and listen to user inputs. You will see the 
+following message on console when it is successfully started up and ready for your commands to execute,
+
+'Robot Simulation waiting for your commands, press Ctrl-D to terminate'
+
+you can execute commands one by one (pressing the enter to parse the input)
+use the command CTRL-D to terminate the program.
+
+
+#Logs
+------
+by default all loggings will be recorded in a file robot.log located at,
+project-root/logs folder.
+
+You can change the logging level in log4j.properties file located at
+scr/main/resources folder.
+(log4j.rootLogger=INFO, file)
+
+
+#acceptance test cases
+----------------------
+By default acceptance tests will be executed on build.
+(as well as mvn test)
+
+You can find those test cases in,
+src/test/java/com/rea/robotsimulation/simulator/test/SelfMovingRobotSimulationAcceptanceTest.java
