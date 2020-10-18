@@ -36,7 +36,6 @@ public class InputStreamCommandProvider implements InputCommandProvider
         }
         catch (IOException e)
         {
-            e.printStackTrace();
             return Optional.empty();
         }
     }

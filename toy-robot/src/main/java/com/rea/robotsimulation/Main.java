@@ -15,9 +15,9 @@ import com.rea.robotsimulation.simulator.RobotSimulator;
  */
 public class Main
 {
-    public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-    public static final String MSG_SIMULATION_ACTIVE =
+    private static final String MSG_SIMULATION_ACTIVE =
             "Robot Simulation waiting for your commands, press Ctrl-D to terminate";
 
     public static void main(String[] args)

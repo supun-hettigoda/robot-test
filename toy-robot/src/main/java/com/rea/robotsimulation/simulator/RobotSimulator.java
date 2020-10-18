@@ -31,7 +31,7 @@ import com.rea.robotsimulation.robot.Robot;
  */
 public class RobotSimulator
 {
-    public static final Logger LOGGER = LoggerFactory.getLogger(RobotSimulator.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RobotSimulator.class);
 
     // from which the simulator receive simulation commands.
     private final InputCommandProvider commandProvider;
