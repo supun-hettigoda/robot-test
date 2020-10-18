@@ -1,6 +1,9 @@
 
 package com.rea.robotsimulation.command;
 
+import java.util.Optional;
+import java.util.function.Consumer;
+
 import com.rea.robotsimulation.robot.Robot;
 
 /**
@@ -10,7 +13,8 @@ import com.rea.robotsimulation.robot.Robot;
 public interface ExecutableRobotCommand
 {
     /**
-     * execute the command to the given {@code Robot}.
+     * execute the command on the given {@code Robot}, and report the state of the execution if the
+     * reporter is present.
      */
-    public void execute(Robot robot);
+    public void execute(Robot robot, Optional<Consumer<String>> commandExecutionStateReporter);
 }

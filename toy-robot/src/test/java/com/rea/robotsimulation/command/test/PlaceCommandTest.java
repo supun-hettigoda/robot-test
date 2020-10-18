@@ -1,6 +1,8 @@
 
 package com.rea.robotsimulation.command.test;
 
+import java.util.Optional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -36,7 +38,7 @@ public class PlaceCommandTest
     {
         // when execute we expect Robot's place() method to be invoked.
         Mockito.doNothing().when(robot).place(point, facingDirection);
-        command.execute(robot);
+        command.execute(robot, Optional.empty());
         Mockito.verify(robot).place(point, facingDirection);
     }
 }

@@ -1,6 +1,8 @@
 
 package com.rea.robotsimulation.command.test;
 
+import java.util.Optional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -29,7 +31,7 @@ public class RightCommandTest
     {
         // when execute we expect Robot's rotateRight() method to be invoked.
         Mockito.doNothing().when(robot).rotateRight();
-        command.execute(robot);
+        command.execute(robot, Optional.empty());
         Mockito.verify(robot).rotateRight();
     }
 }

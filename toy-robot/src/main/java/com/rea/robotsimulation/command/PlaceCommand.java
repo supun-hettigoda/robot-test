@@ -2,6 +2,8 @@
 package com.rea.robotsimulation.command;
 
 import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 import com.rea.robotsimulation.grid.FacingDirection;
 import com.rea.robotsimulation.grid.GridPoint;
@@ -26,7 +28,7 @@ public class PlaceCommand implements ExecutableRobotCommand
     }
 
     @Override
-    public void execute(Robot robot)
+    public void execute(Robot robot, Optional<Consumer<String>> commandExecutionStateReporter)
     {
         robot.place(pointToPlace, facingDirectionToPlace);
     }
